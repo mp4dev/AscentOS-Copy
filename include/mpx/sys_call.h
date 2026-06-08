@@ -1,3 +1,5 @@
+#include <mpx/dcb.h>
+#include <mpx/io.h>
 /**
  * @brief Used for processing part of the ISR. Using EAX registers for each process, it is involved in modifying 
  * each ready, running, and nonsuspended queues based on IDLE and EXIT conditions on aformentioned register. Applies context
@@ -21,3 +23,14 @@ pcb* pop(struct pcb** queue_head);
  * @param queue_process the PCB that you want to push at the end of the queue
  */
 void push_by_priority(pcb** queue_head, pcb** queue_tail, struct pcb* process);
+
+/// @brief 
+/// @param op 
+/// @param dcb 
+/// @param buffer 
+/// @param size 
+void IOScheduler(iocb* queued_iocb);
+
+void IOComplete(void);
+
+iocb *create_iocb(int op, dcb *curr_dcb, char *buffer, int size);

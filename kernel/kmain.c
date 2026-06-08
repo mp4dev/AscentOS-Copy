@@ -9,7 +9,8 @@
 #include <mpx/commands.h>
 #include <processes.h>
 #include <mpx/mcb.h>
-
+#include <mpx/iocb.h>
+#include <mpx/print.h>
 static void klogv(device dev, const char *msg)
 {
 	char prefix[] = "klogv: ";
@@ -94,6 +95,8 @@ void kmain(void)
 	insert_context(ip, sys_idle_process);
 	pcb_insert(ch);
 	pcb_insert(ip);
+
+	serial_open(COM1, 19200);
 
 	// 9) YOUR command handler -- *create and #include an appropriate .h file*
 	// Pass execution to your command handler so the user can interact with

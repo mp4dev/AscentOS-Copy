@@ -1,7 +1,7 @@
 #ifndef MPX_DEVICES_H
 #define MPX_DEVICES_H
 
-typedef enum {
+typedef enum device {
 	COM1 = 0x3f8,
 	COM2 = 0x2f8,
 	COM3 = 0x3e8,

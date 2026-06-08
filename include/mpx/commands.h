@@ -95,23 +95,7 @@ int create_pcb(char *name, char *class, int priority);
  */
 int delete_pcb(char *name);
 
-/**
- * @brief Block pcb function
- * 
- * Allows a user to block a pcb
- * @param name The name of an existing PCB
- * @return A status code of 0 if successful, -1 if not
- */
-int block_pcb(char *name);
 
-/**
- * @brief Unblock pcb function
- * 
- * Allows user to unblock a pcb
- * @param name The name of an existing PCB
- * @return A status code of 0 if successful, -1 if not
- */
-int unblock_pcb(char *name);
 
 /**
  * @brief Suspend pcb function

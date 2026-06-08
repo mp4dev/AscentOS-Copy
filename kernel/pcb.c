@@ -3,7 +3,8 @@
 #include "memory.h"
 #include "mpx/serial.h"
 #include <string.h>
-
+#include <mpx/print.h>
+#include <mpx/commands.h>
 pcb *ready_head = NULL; 
 pcb *ready_tail = NULL;
 pcb *ready_sus_head = NULL; 
@@ -244,6 +245,58 @@ struct pcb* pcb_find(const char *name){
     }
     return 0;//not found
  }
+
+ int block_pcb(pcb* pcb_to_block) {
+
+    // Ensure PCB exists
+    if (pcb_to_block == NULL) {
+        return -1;
+    }
+
+
+    // Ensure not already blocked
+    if (pcb_to_block->ex_state == BLOCKED) {
+        return -1;
+    }
+    /*
+    // remove it from queue
+    if (pcb_remove(pcb_to_block) != 0) {
+        return -1;
+    }
+    */
+    // Change execution state
+    pcb_to_block->ex_state = BLOCKED;
+
+    // Reinsert
+    pcb_insert(pcb_to_block);
+
+    return 0;
+}
+
+int unblock_pcb(pcb* pcb_to_unblock) {    
+    if (pcb_to_unblock == NULL) {
+        return -1;
+    }
+
+    // Ensure not already ready (unblocked)
+    if (pcb_to_unblock->ex_state != BLOCKED) {
+        return -1;
+    }
+
+    /*
+    // Remove from queue
+    if (pcb_remove(pcb_to_unblock) != 0) {
+        return -1;
+    }
+    */
+    // Change execution state to ready
+    pcb_to_unblock->ex_state = READY;
+
+    // Reinsert
+    pcb_insert(pcb_to_unblock);
+
+    return 0;
+}
 
 char* get_exec_state(int state)
 {

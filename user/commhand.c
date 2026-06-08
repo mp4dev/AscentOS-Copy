@@ -272,28 +272,28 @@ void commhand(void)
                 }
             }
         }
-        else if (strcmp(command, "block_pcb") == 0 || strcmp(command, "block") == 0) {
-            expected_count = 1;
-            if (!count_expected(param_count, expected_count)) {
-                print_param_bounds_error(param_count, expected_count, "block_pcb");
-            }
-            else {
-                if (block_pcb(params[0]) == 0) {
-                    print_suc("PCB blocked successfully!\n");
-                }
-            }
-        }
-        else if (strcmp(command, "unblock_pcb") == 0 || strcmp(command, "unblock") == 0) {
-            expected_count = 1;
-            if (!count_expected(param_count, expected_count)) {
-                print_param_bounds_error(param_count, expected_count, "unblock_pcb");
-            }
-            else {
-                if (unblock_pcb(params[0]) == 0) {
-                    print_suc("PCB unblocked successfully!\n");
-                }
-            }
-        }
+        // else if (strcmp(command, "block_pcb") == 0 || strcmp(command, "block") == 0) {
+        //     expected_count = 1;
+        //     if (!count_expected(param_count, expected_count)) {
+        //         print_param_bounds_error(param_count, expected_count, "block_pcb");
+        //     }
+        //     else {
+        //         if (block_pcb(params[0]) == 0) {
+        //             print_suc("PCB blocked successfully!\n");
+        //         }
+        //     }
+        // }
+        // else if (strcmp(command, "unblock_pcb") == 0 || strcmp(command, "unblock") == 0) {
+        //     expected_count = 1;
+        //     if (!count_expected(param_count, expected_count)) {
+        //         print_param_bounds_error(param_count, expected_count, "unblock_pcb");
+        //     }
+        //     else {
+        //         if (unblock_pcb(params[0]) == 0) {
+        //             print_suc("PCB unblocked successfully!\n");
+        //         }
+        //     }
+        // }
         else if (strcmp(command, "suspend_pcb") == 0 || strcmp(command, "suspend") == 0) {
             expected_count = 1;
             if (!count_expected(param_count, expected_count)) {

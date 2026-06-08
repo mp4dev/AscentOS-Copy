@@ -14,7 +14,7 @@
  * @def VERSION
  * @brief Current Module/Release of mpx project
  */
-#define VERSION "R5"
+#define VERSION "R6"
 
 int century=20;//used to grab the first 2 numbers of the year, because RTC only stores the last 2
 
@@ -43,8 +43,8 @@ void help(void)
     print(
         "  create_pcb \x1b[31m~~DEPRECATED~~\x1b[0m\n"
         "  delete_pcb <name> - Deletes the PCB with the given name\n"
-        "  block_pcb <name> - Blocks the PCB with the given name\n"
-        "  unblock_pcb <name> - Unblocks the PCB with the given name\n"
+        "  block_pcb \x1b[31m~~DEPRECATED~~\x1b[0m\n"
+        "  unblock_pcb \x1b[31m~~DEPRECATED~~\x1b[0m\n"
         "  suspend_pcb <name> - Suspends the PCB with the given name\n"
         "  resume_pcb <name> - Unsuspends the PCB with the given name\n"
         "  set_priority <name> <priority> - Modifies the priority of a PCB and moves it to the appropriate location\n"
@@ -541,79 +541,7 @@ int delete_pcb(char *name) {
     return 0;
 }
 
-int block_pcb(char *name) {
-    // Check for valid name
-    if (pcb_validate_name(name) != 0) {
-        return -1;
-    }
 
-    // Ensure PCB exists
-    pcb *pcb_to_block = pcb_find(name);
-    if (pcb_to_block == NULL) {
-        print_err("Error: PCB with given name does not exist.\n");
-        return -1;
-    }
-
-    // Must NOT be a system process
-    if (pcb_to_block->class == SYSTEM) {
-        print_err("Error: A system process cannot be blocked.\n");
-        return -1;
-    }
-
-    // Ensure not already blocked
-    if (pcb_to_block->ex_state == BLOCKED) {
-        print_err("Error: PCB already blocked.\n");
-        return -1;
-    }
-
-    // remove it from queue
-    if (pcb_remove(pcb_to_block) != 0) {
-        print_err("Error encountered when attempting to remove PCB from queue\n");
-        return -1;
-    }
-
-    // Change execution state
-    pcb_to_block->ex_state = BLOCKED;
-
-    // Reinsert
-    pcb_insert(pcb_to_block);
-
-    return 0;
-}
-
-int unblock_pcb(char *name) {
-    // Check for valid name
-    if (pcb_validate_name(name) != 0) {
-        return -1;
-    }
-    
-    // Ensure PCB exists
-    pcb *pcb_to_unblock = pcb_find(name);
-    if (pcb_to_unblock == NULL) {
-        print_err("Error: PCB with given name does not exist\n");
-        return -1;
-    }
-
-    // Ensure not already ready (unblocked)
-    if (pcb_to_unblock->ex_state != BLOCKED) {
-        print_err("Error: PCB already unblocked.\n");
-        return -1;
-    }
-
-    // Remove from queue
-    if (pcb_remove(pcb_to_unblock) != 0) {
-        print_err("Error encountered when attempting to remove PCB from queue.\n");
-        return -1;
-    }
-
-    // Change execution state to ready
-    pcb_to_unblock->ex_state = READY;
-
-    // Reinsert
-    pcb_insert(pcb_to_unblock);
-
-    return 0;
-}
 
 int suspend_pcb(char *name) {
     // Check for valid name

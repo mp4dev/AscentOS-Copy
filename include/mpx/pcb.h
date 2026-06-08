@@ -26,7 +26,7 @@ typedef struct pcb {
     int priority; // 0-9, high-low
     int ex_state; // 0=ready, 1=running, 2=blocked
     int disp_state; // 3=suspened, 4=not suspended
-    unsigned char stack[STACK_SIZE];
+    unsigned char stack[STACK_SIZE]; // OUR STACK SIZE IS 1024 BYTES OR 8192 BITS!!!
     struct context* stackPtr;
     struct pcb *next;
     struct pcb *prev;
@@ -149,7 +149,23 @@ void pcb_insert(struct pcb* name);
  */
 int pcb_remove(struct pcb* name);
 
+/**
+ * @brief Block pcb function
+ * 
+ * Allows a user to block a pcb
+ * @param name The name of an existing PCB
+ * @return A status code of 0 if successful, -1 if not
+ */
+int block_pcb(pcb* pcb_to_block);
 
+/**
+ * @brief Unblock pcb function
+ * 
+ * Allows user to unblock a pcb
+ * @param name The name of an existing PCB
+ * @return A status code of 0 if successful, -1 if not
+ */
+int unblock_pcb(pcb* pcb_to_unblock);
 
 
 /**

@@ -27,4 +27,8 @@ KERNEL_OBJECTS=\
   kernel/print.o\
   kernel/sys_call.o\
   kernel/alarm.o\
-  kernel/mcb.o
+  kernel/mcb.o\
+  kernel/iocb.o\
+  kernel/dcb.o\
+  kernel/devicedriver.o\
+  kernel/serial_isr.o

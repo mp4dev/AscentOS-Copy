@@ -52,7 +52,7 @@ void* allocate_memory(size_t size)
                     cur->next->prev = newMCB;
                 }
                 
-                cur->next = newMCB; // M
+                cur->next = newMCB; 
             }
 
             // Changes the current MCB to allocated and moves it to the allocated section
